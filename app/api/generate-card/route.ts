@@ -14,16 +14,16 @@ export async function GET(request: Request) {
 
     return new ImageResponse(
       (
-        <svg width="500" height="550" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 500 550" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="outerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#f97316', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#fb923c', stopOpacity: 1 }} />
+              <stop offset="0%" stopColor="#f97316" stopOpacity="1" />
+              <stop offset="100%" stopColor="#fb923c" stopOpacity="1" />
             </linearGradient>
             <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#a78bfa', stopOpacity: 1 }} />
-              <stop offset="50%" style={{ stopColor: '#d8b4fe', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#f472b6', stopOpacity: 1 }} />
+              <stop offset="0%" stopColor="#a78bfa" stopOpacity="1" />
+              <stop offset="50%" stopColor="#d8b4fe" stopOpacity="1" />
+              <stop offset="100%" stopColor="#f472b6" stopOpacity="1" />
             </linearGradient>
             <clipPath id="avatarClip">
               <circle cx="250" cy="120" r="50" />
@@ -37,7 +37,6 @@ export async function GET(request: Request) {
           <text x="250" y="210" fontSize="18" fill="rgba(255,255,255,0.9)" textAnchor="middle" fontFamily="system-ui">{usernameDisplay}</text>
           <text x="250" y="250" fontSize="16" fill="rgba(255,255,255,0.8)" textAnchor="middle" fontFamily="system-ui">Avg Engagement Score</text>
           <text x="250" y="330" fontSize="72" fontWeight="900" fill="white" textAnchor="middle" fontFamily="system-ui">{score}</text>
-
         </svg>
       ),
       {
