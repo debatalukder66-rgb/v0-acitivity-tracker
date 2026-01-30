@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
     return new ImageResponse(
       (
-        <svg width="500" height="650" xmlns="http://www.w3.org/2000/svg">
+        <svg width="500" height="550" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="outerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" style={{ stopColor: '#f97316', stopOpacity: 1 }} />
@@ -29,24 +29,20 @@ export async function GET(request: Request) {
               <circle cx="250" cy="120" r="50" />
             </clipPath>
           </defs>
-          <rect width="500" height="650" fill="url(#outerGrad)" />
-          <rect x="12" y="12" width="476" height="626" rx="24" fill="url(#innerGrad)" />
+          <rect width="500" height="550" fill="url(#outerGrad)" />
+          <rect x="12" y="12" width="476" height="526" rx="24" fill="url(#innerGrad)" />
           <image x="200" y="70" width="100" height="100" href={pfpUrl} clipPath="url(#avatarClip)" />
           <circle cx="250" cy="120" r="50" fill="none" stroke="white" strokeWidth="4" />
           <text x="250" y="180" fontSize="28" fontWeight="bold" fill="white" textAnchor="middle" fontFamily="system-ui">{displayName}</text>
           <text x="250" y="210" fontSize="18" fill="rgba(255,255,255,0.9)" textAnchor="middle" fontFamily="system-ui">{usernameDisplay}</text>
           <text x="250" y="250" fontSize="16" fill="rgba(255,255,255,0.8)" textAnchor="middle" fontFamily="system-ui">Avg Engagement Score</text>
           <text x="250" y="330" fontSize="72" fontWeight="900" fill="white" textAnchor="middle" fontFamily="system-ui">{score}</text>
-          <rect x="12" y="370" width="476" height="60" rx="16" fill="#334155" />
-          <text x="250" y="410" fontSize="28" fontWeight="bold" fill="white" textAnchor="middle" fontFamily="system-ui">check your score</text>
-          <text x="80" y="520" fontSize="24" textAnchor="middle">💬</text>
-          <text x="250" y="520" fontSize="24" textAnchor="middle">🔄</text>
-          <text x="420" y="520" fontSize="24" textAnchor="middle">❤️</text>
+
         </svg>
       ),
       {
         width: 500,
-        height: 650,
+        height: 550,
       },
     )
   } catch (error) {

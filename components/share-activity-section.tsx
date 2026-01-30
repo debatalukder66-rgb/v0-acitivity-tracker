@@ -77,18 +77,16 @@ export function ShareActivitySection({ username }: ShareActivitySectionProps) {
   }
 
   const handleShareToFarcaster = async () => {
-    const profileUrl = `https://activity-tracker.online/profile/${user.username}`
-    const cardImageUrl = `https://activity-tracker.online/api/generate-card?username=${encodeURIComponent(user.username)}&score=${avgEngagement}&displayName=${encodeURIComponent(user.display_name)}&pfpUrl=${encodeURIComponent(user.pfp_url || '')}`
+    const appLink = `https://v0-acitivity-tracker.vercel.app/profile/${user.username}`
     
     const text = `📊 Just checked my Farcaster engagement on Activity Tracker!
 
 My engagement score: ${avgEngagement}
 Username: @${user.username}
 
-Are you staying based? Check YOUR engagement stats 👇
-
 Track your activity. Know your impact. Stay Based. 🟣
-Built on /base.`
+
+${appLink}`
 
     // Detect if running in Base App
     const isInBaseApp = typeof window !== 'undefined' && (
@@ -102,8 +100,7 @@ Built on /base.`
       if ((window as any).baseApp && (window as any).baseApp.share) {
         try {
           (window as any).baseApp.share({ 
-            text: text,
-            imageUrl: cardImageUrl
+            text: text
           })
           return
         } catch (error) {
@@ -113,16 +110,14 @@ Built on /base.`
 
       // Fallback: Copy to clipboard for Base App
       try {
-        const shareMessage = `${text}\n\n${cardImageUrl}`
-        await navigator.clipboard.writeText(shareMessage)
-        alert('Activity card copied to clipboard! Paste in your Base App cast.')
+        await navigator.clipboard.writeText(text)
+        alert('Activity shared! The card will auto-embed in your post.')
       } catch (error) {
         console.error('[v0] Clipboard copy failed:', error)
       }
     } else {
-      // Regular web: open Farcaster compose
-      const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}&embeds[]=${encodeURIComponent(cardImageUrl)}&embeds[]=${encodeURIComponent(profileUrl)}`
-      window.open(url, "_blank")
+      // Not in Base App - show message
+      alert('This feature is designed for Base App. Please use Base App to share your activity.')
     }
   }
 
@@ -228,7 +223,7 @@ Built on /base.`
               className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700 text-white font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <Share2 className="w-5 h-5" />
-              Share to Farcaster
+              Share to Base App
             </button>
             <button
               onClick={handleDownloadCardImage}
