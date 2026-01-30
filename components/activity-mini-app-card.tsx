@@ -35,15 +35,16 @@ export function ActivityMiniAppCard({ username }: ActivityMiniAppCardProps) {
   const handleShare = async () => {
     setIsSharing(true)
     try {
+      const appLink = `https://v0-acitivity-tracker.vercel.app/profile/${user.username}`
+      
       const text = `📊 Just checked my Farcaster engagement on Activity Tracker!
 
 My engagement score: ${avgEngagement}
 Username: @${user.username}
 
-Are you staying based? Check YOUR engagement stats 👇
-
 Track your activity. Know your impact. Stay Based. 🟣
-Built on /base.`
+
+${appLink}`
 
       const isInBaseApp = typeof window !== 'undefined' && (
         window.location.hostname.includes('baseapp') || 
@@ -56,11 +57,10 @@ Built on /base.`
           (window as any).baseApp.share({ text })
         } else {
           await navigator.clipboard.writeText(text)
-          alert('Activity copied! Paste in your Base App cast.')
+          alert('Activity shared! The card will auto-embed in your post.')
         }
       } else {
-        const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`
-        window.open(url, "_blank")
+        alert('This feature is designed for Base App. Please use Base App to share your activity.')
       }
     } catch (error) {
       console.error('[v0] Share error:', error)

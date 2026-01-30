@@ -13,35 +13,40 @@ export async function GET(request: Request) {
     const usernameDisplay = username.startsWith('@') ? username : `@${username}`
 
     return new ImageResponse(
-      (<div style={{ display: 'flex', flexDirection: 'column', width: '500px', height: '650px', background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)', padding: '12px', fontFamily: 'system-ui' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', background: 'linear-gradient(135deg, #a78bfa 0%, #d8b4fe 50%, #f472b6 100%)', borderRadius: '24px', padding: '40px 20px', gap: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100px', height: '100px', borderRadius: '50%', background: 'white', border: '4px solid white', overflow: 'hidden' }}>
-            <img src={pfpUrl} alt={username} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-            <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white', margin: '0' }}>{displayName}</h2>
-            <p style={{ fontSize: '18px', color: 'rgba(255, 255, 255, 0.9)', margin: '0' }}>{usernameDisplay}</p>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-            <p style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.8)', margin: '0' }}>Avg Engagement Score</p>
-            <p style={{ fontSize: '72px', fontWeight: '900', color: 'white', margin: '0', lineHeight: '1' }}>{score}</p>
-          </div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', background: '#334155', borderRadius: '16px', padding: '16px', marginTop: '12px', fontSize: '28px', fontWeight: 'bold', color: 'white' }}>check your score</div>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '32px', marginTop: '12px', fontSize: '24px' }}>
-          <span>💬</span>
-          <span>🔄</span>
-          <span>❤️</span>
-          <span>↗️</span>
-        </div>
-      </div>),
+      (
+        <svg width="500" height="550" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="outerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#f97316', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#fb923c', stopOpacity: 1 }} />
+            </linearGradient>
+            <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#a78bfa', stopOpacity: 1 }} />
+              <stop offset="50%" style={{ stopColor: '#d8b4fe', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#f472b6', stopOpacity: 1 }} />
+            </linearGradient>
+            <clipPath id="avatarClip">
+              <circle cx="250" cy="120" r="50" />
+            </clipPath>
+          </defs>
+          <rect width="500" height="550" fill="url(#outerGrad)" />
+          <rect x="12" y="12" width="476" height="526" rx="24" fill="url(#innerGrad)" />
+          <image x="200" y="70" width="100" height="100" href={pfpUrl} clipPath="url(#avatarClip)" />
+          <circle cx="250" cy="120" r="50" fill="none" stroke="white" strokeWidth="4" />
+          <text x="250" y="180" fontSize="28" fontWeight="bold" fill="white" textAnchor="middle" fontFamily="system-ui">{displayName}</text>
+          <text x="250" y="210" fontSize="18" fill="rgba(255,255,255,0.9)" textAnchor="middle" fontFamily="system-ui">{usernameDisplay}</text>
+          <text x="250" y="250" fontSize="16" fill="rgba(255,255,255,0.8)" textAnchor="middle" fontFamily="system-ui">Avg Engagement Score</text>
+          <text x="250" y="330" fontSize="72" fontWeight="900" fill="white" textAnchor="middle" fontFamily="system-ui">{score}</text>
+
+        </svg>
+      ),
       {
         width: 500,
-        height: 650,
+        height: 550,
       },
     )
   } catch (error) {
-    console.error('[v0] Error generating card image:', error)
+    console.error('[v0] Error generating card:', error)
     return new Response('Error generating card', { status: 500 })
   }
 }
